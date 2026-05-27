@@ -2,6 +2,9 @@
 
 > One-click login to any Salesforce org — Production, Sandbox, or custom My Domain — directly from your browser toolbar.
 
+<img width="1154" height="359" alt="Screenshot 2026-05-27 at 12 24 57 PM" src="https://github.com/user-attachments/assets/1ad24f6d-7e1e-4814-9448-17844b325405" />
+<img width="1154" height="359" alt="Screenshot 2026-05-27 at 12 25 12 PM" src="https://github.com/user-attachments/assets/6218b44f-b5ae-4794-8e7f-b395e1d53c08" />
+<img width="1154" height="359" alt="Screenshot 2026-05-27 at 12 25 18 PM" src="https://github.com/user-attachments/assets/efaa4a8c-933d-456d-8efb-e4ed4fb55829" />
 
 
 ---
