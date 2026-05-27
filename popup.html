@@ -1,0 +1,168 @@
+<!-- 
+ * Developed by: Gaurav Lokhande
+ * Email: gaurravLokhande@gmail.com
+ * Portfolio: https://gauravxlokhande.github.io/gauravxlokhande/
+ * Linkedin: www.linkedin.com/in/gauravlokhande
+ * GitHub: https://github.com/gauravxlokhande
+ * Trailhead: https://www.salesforce.com/trailblazer/gauravlokhande
+ * Instagram: gaurravlokhande
+ * @Version: 0.1 
+ * @Completed on: 20 May 2026
+  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SF Password Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css"/>
+</head>
+<body>
+<div class="app">
+
+  <!-- Header -->
+  <header class="hdr">
+    <div class="hdr-left">
+      <div class="logo-mark">
+        <svg viewBox="0 0 20 20" fill="none">
+          <path d="M10 2.5C7.5 2.5 5.5 4.2 5.5 6.3c0 1 .4 2 1 2.7C4.8 9.8 3.5 11.4 3.5 13.4c0 2.8 3 4.6 6.5 4.6s6.5-1.8 6.5-4.6c0-2-1.3-3.6-3-4.4.6-.7 1-1.7 1-2.7 0-2.1-2-3.8-4.5-3.8z" fill="currentColor" opacity=".18"/>
+          <circle cx="10" cy="9" r="2.6" fill="currentColor"/>
+          <path d="M6.8 15c0-1.77 1.43-3.2 3.2-3.2s3.2 1.43 3.2 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="logo-text">SF Password Manager</span>
+      <span class="org-badge" id="orgBadge">0 orgs</span>
+    </div>
+    <div class="hdr-right">
+      <button class="hbtn" id="themeBtn" title="Toggle theme">
+        <svg class="ico-sun" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="2.8" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M8 1.5V3M8 13v1.5M1.5 8H3M13 8h1.5M3.2 3.2l1 1M11.8 11.8l1 1M11.8 4.2l-1 1M4.2 11.8l-1 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+         <svg class="ico-moon" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="2.8" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M8 1.5V3M8 13v1.5M1.5 8H3M13 8h1.5M3.2 3.2l1 1M11.8 11.8l1 1M11.8 4.2l-1 1M4.2 11.8l-1 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button class="hbtn add-btn" id="addBtn" title="Add org">
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Search -->
+  <div class="search-row" id="searchRow">
+    <svg viewBox="0 0 14 14" fill="none" class="s-ico">
+      <circle cx="6" cy="6" r="3.8" stroke="currentColor" stroke-width="1.4"/>
+      <path d="M9 9l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    <input id="searchIn" class="s-in" type="text" placeholder="Search orgs…" spellcheck="false" autocomplete="off"/>
+    <button id="sClear" class="s-clear">
+      <svg viewBox="0 0 10 10" fill="none"><path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <!-- Org list -->
+  <div class="list" id="list"></div>
+
+  <!-- Empty state -->
+  <div class="empty" id="empty">
+    <svg viewBox="0 0 56 56" fill="none">
+      <rect x="8" y="14" width="40" height="32" rx="5" stroke="currentColor" stroke-width="1.6" opacity=".2"/>
+      <path d="M18 24h20M18 31h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".2"/>
+      <circle cx="40" cy="40" r="11" fill="var(--accent)" opacity=".08"/>
+      <path d="M40 36v8M36 40h8" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <p class="e-title" id="eTitle">No orgs saved</p>
+    <p class="e-sub" id="eSub">Click <b>+</b> to add your Salesforce org</p>
+  </div>
+
+  <!-- Drawer -->
+  <div class="backdrop" id="backdrop">
+    <div class="drawer" id="drawer">
+      <div class="drawer-pill"></div>
+      <div class="drawer-top">
+        <h3 id="drawerH">Add Org</h3>
+        <button class="hbtn" id="drawerX">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="field">
+        <label>Org Name</label>
+        <input id="fName" type="text" class="inp" placeholder="e.g.Gaurav Dev Sandbox"/>
+      </div>
+
+      <div class="field">
+        <label>Login URL <span class="lbl-sub">— paste your org's full URL from the browser</span></label>
+        <input id="fUrl" type="url" class="inp" placeholder="https://yourorg.sandbox.my.salesforce.com"/>
+        <div class="url-presets">
+          <button class="preset" data-url="https://login.salesforce.com">
+            <span class="preset-dot prod"></span>Production
+          </button>
+          <button class="preset" data-url="https://test.salesforce.com">
+            <span class="preset-dot sand"></span>Sandbox
+          </button>
+          <button class="preset custom-p" data-url="">
+            <span class="preset-dot cust"></span>Custom URL ↑
+          </button>
+        </div>
+        <p class="field-note">💡 For custom sandboxes like <code>company--dev.sandbox.my.salesforce.com</code>, paste the full URL above</p>
+      </div>
+
+      <div class="field">
+        <label>Username</label>
+        <input id="fUser" type="text" class="inp" placeholder="user@company.com.sandboxname" autocomplete="off"/>
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <div class="pw-wrap">
+          <input id="fPass" type="password" class="inp" placeholder="••••••••••••" autocomplete="new-password"/>
+          <button id="eyeBtn" class="eye-btn" tabindex="-1">
+            <svg class="eye-show" viewBox="0 0 14 14" fill="none">
+              <path d="M1 7s2.3-4.5 6-4.5S13 7 13 7s-2.3 4.5-6 4.5S1 7 1 7z" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="7" cy="7" r="1.7" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+            <svg class="eye-hide" viewBox="0 0 14 14" fill="none" style="display:none">
+              <path d="M2 2l10 10M6.2 5.7A1.7 1.7 0 019 8.8M4 4C2.5 5 1 7 1 7s2.3 4.5 6 4.5c1.2 0 2.2-.3 3.1-.9M6.5 2.5C6.7 2.5 6.8 2.5 7 2.5c3.7 0 6 4.5 6 4.5s-.5 1-1.5 2.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <p class="field-note">💡 If your org requires a security token, append it to your password: <code>password + token</code></p>
+      </div>
+
+      <div class="field">
+        <label>Label Color</label>
+        <div class="swatches" id="swatches">
+          <button class="sw active" data-c="#0176D3" style="--c:#0176D3"></button>
+          <button class="sw" data-c="#16A34A" style="--c:#16A34A"></button>
+          <button class="sw" data-c="#F59E0B" style="--c:#F59E0B"></button>
+          <button class="sw" data-c="#EF4444" style="--c:#EF4444"></button>
+          <button class="sw" data-c="#8B5CF6" style="--c:#8B5CF6"></button>
+          <button class="sw" data-c="#EC4899" style="--c:#EC4899"></button>
+          <button class="sw" data-c="#06B6D4" style="--c:#06B6D4"></button>
+          <button class="sw" data-c="#64748B" style="--c:#64748B"></button>
+        </div>
+      </div>
+
+      <div class="drawer-foot">
+        <button class="btn ghost" id="cancelBtn">Cancel</button>
+        <button class="btn solid" id="saveBtn">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M1.5 6l3 3 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Save Org
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>
